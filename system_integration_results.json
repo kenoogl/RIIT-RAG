@@ -1,0 +1,34 @@
+{
+  "total_checks": 5,
+  "passed": 5,
+  "failed": 0,
+  "success_rate": 100.0,
+  "total_time": 4.347138166427612,
+  "overall_status": "passed",
+  "check_results": {
+    "configuration": {
+      "status": "passed",
+      "sections_checked": 10,
+      "directories_verified": 4
+    },
+    "core_services": {
+      "status": "passed",
+      "services_tested": 3,
+      "chunks_created": 1
+    },
+    "api_structure": {
+      "status": "passed",
+      "main_routes_found": 5,
+      "mgmt_routes_found": 2
+    },
+    "data_models": {
+      "status": "passed",
+      "models_tested": 4
+    },
+    "management_services": {
+      "status": "passed",
+      "services_tested": 2,
+      "documents_found": 5
+    }
+  }
+}

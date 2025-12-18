@@ -1,0 +1,19 @@
+{
+  "documents": {
+    "mgmt_test_doc": {
+      "id": "mgmt_test_doc",
+      "title": "管理テストドキュメント",
+      "url": "https://example.com/mgmt_test",
+      "language": "ja",
+      "content_length": 23,
+      "chunk_count": 0,
+      "created_at": "2025-12-19T00:58:14.393302",
+      "updated_at": "2025-12-19T00:58:14.393303",
+      "added_to_system": "2025-12-19T00:58:14.393325",
+      "processing_time": 1.8835067749023438e-05
+    }
+  },
+  "last_updated": "2025-12-19T00:58:14.393327",
+  "total_documents": 1,
+  "total_chunks": 0
+}

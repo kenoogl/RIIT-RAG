@@ -78,6 +78,10 @@ class SearchConfig:
     min_similarity_score: float
     max_results: int
     enable_reranking: bool
+    enable_query_expansion: bool
+    enable_query_normalization: bool
+    max_query_length: int
+    enable_search_analytics: bool
 
 
 @dataclass
