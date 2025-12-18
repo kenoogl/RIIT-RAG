@@ -194,3 +194,42 @@ def create_directories(config: Config) -> None:
     
     for directory in directories:
         Path(directory).mkdir(parents=True, exist_ok=True)
+
+
+# Global configuration cache
+_config_cache: Optional[Dict[str, Any]] = None
+
+
+def get_config(config_path: Optional[str] = None) -> Dict[str, Any]:
+    """
+    Get configuration as dictionary (simplified interface).
+    
+    Args:
+        config_path: Path to configuration file
+        
+    Returns:
+        Configuration dictionary
+    """
+    global _config_cache
+    
+    if _config_cache is None:
+        if config_path is None:
+            config_path = "config.yaml"
+        
+        config_file = Path(config_path)
+        if not config_file.exists():
+            # Return default configuration if file doesn't exist
+            return {
+                'embedding': {
+                    'model_name': 'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2',
+                    'model_path': './models/embedding',
+                    'batch_size': 32,
+                    'max_seq_length': 512,
+                    'device': 'cpu'
+                }
+            }
+        
+        with open(config_file, 'r', encoding='utf-8') as f:
+            _config_cache = yaml.safe_load(f)
+    
+    return _config_cache
