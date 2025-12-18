@@ -7,7 +7,7 @@ import logging
 import logging.handlers
 import os
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, List
 import structlog
 
 
@@ -113,3 +113,116 @@ def get_logger(name: str) -> structlog.BoundLogger:
         Structured logger instance
     """
     return structlog.get_logger(name)
+
+
+def setup_document_processing_logger(log_dir: str = "./logs") -> logging.Logger:
+    """
+    Set up a dedicated logger for document processing operations.
+    
+    Args:
+        log_dir: Directory for log files
+        
+    Returns:
+        Configured logger for document processing
+    """
+    log_path = Path(log_dir)
+    log_path.mkdir(parents=True, exist_ok=True)
+    
+    # Create dedicated logger
+    logger = logging.getLogger('document_processing')
+    logger.setLevel(logging.INFO)
+    
+    # Remove existing handlers
+    for handler in logger.handlers[:]:
+        logger.removeHandler(handler)
+    
+    # File handler for document processing logs
+    log_file = log_path / "document_processing.log"
+    file_handler = logging.handlers.RotatingFileHandler(
+        log_file,
+        maxBytes=50 * 1024 * 1024,  # 50MB
+        backupCount=10,
+        encoding='utf-8'
+    )
+    
+    # Detailed formatter for document processing
+    formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - [%(funcName)s:%(lineno)d] - %(message)s'
+    )
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    
+    # Console handler for important messages
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.WARNING)
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+    
+    return logger
+
+
+def log_document_processing_event(
+    logger: logging.Logger,
+    event_type: str,
+    document_id: str,
+    details: Dict[str, Any],
+    level: str = "INFO"
+) -> None:
+    """
+    Log a document processing event with structured data.
+    
+    Args:
+        logger: Logger instance
+        event_type: Type of event (e.g., 'processing_start', 'processing_complete', 'error')
+        document_id: ID of the document being processed
+        details: Additional event details
+        level: Log level
+    """
+    log_level = getattr(logging, level.upper(), logging.INFO)
+    
+    message = f"[{event_type}] Document: {document_id}"
+    if details:
+        detail_str = ", ".join([f"{k}={v}" for k, v in details.items()])
+        message += f" | {detail_str}"
+    
+    logger.log(log_level, message)
+
+
+def log_batch_processing_summary(
+    logger: logging.Logger,
+    total_documents: int,
+    successful: int,
+    failed: int,
+    processing_time: float,
+    errors: List[str]
+) -> None:
+    """
+    Log a summary of batch processing results.
+    
+    Args:
+        logger: Logger instance
+        total_documents: Total number of documents processed
+        successful: Number of successfully processed documents
+        failed: Number of failed documents
+        processing_time: Total processing time in seconds
+        errors: List of error messages
+    """
+    success_rate = (successful / total_documents * 100) if total_documents > 0 else 0
+    
+    summary = (
+        f"Batch Processing Summary: {successful}/{total_documents} documents processed "
+        f"({success_rate:.1f}% success rate) in {processing_time:.2f}s"
+    )
+    
+    if failed > 0:
+        summary += f" | {failed} failures"
+        logger.warning(summary)
+        
+        # Log individual errors
+        for i, error in enumerate(errors[:10]):  # Limit to first 10 errors
+            logger.error(f"Error {i+1}: {error}")
+        
+        if len(errors) > 10:
+            logger.error(f"... and {len(errors) - 10} more errors")
+    else:
+        logger.info(summary)

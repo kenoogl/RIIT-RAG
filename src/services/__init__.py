@@ -6,6 +6,7 @@ from .index_manager import IndexManager, IncrementalIndexManager
 from .embedding_model import LocalEmbeddingModel, EmbeddingService, get_embedding_service
 from .text_processor import JapaneseTextProcessor, TextChunker, DocumentProcessor
 from .web_crawler import RobustWebCrawler, WebsiteChangeDetector, create_web_crawler, crawl_kyushu_university_scp
+from .document_engine import DocumentProcessingEngine, create_document_engine, process_kyushu_university_scp
 
 __all__ = [
     'LocalVectorDatabase',
@@ -22,5 +23,8 @@ __all__ = [
     'RobustWebCrawler',
     'WebsiteChangeDetector',
     'create_web_crawler',
-    'crawl_kyushu_university_scp'
+    'crawl_kyushu_university_scp',
+    'DocumentProcessingEngine',
+    'create_document_engine',
+    'process_kyushu_university_scp'
 ]
