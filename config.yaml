@@ -1,0 +1,81 @@
+# RAG System Configuration
+
+# Application settings
+app:
+  name: "Supercomputer Support RAG System"
+  version: "0.1.0"
+  debug: false
+  host: "0.0.0.0"
+  port: 8000
+
+# Web crawling settings
+crawler:
+  target_url: "https://www.cc.kyushu-u.ac.jp/scp/"
+  max_depth: 3
+  delay_between_requests: 1.0
+  timeout: 30
+  user_agent: "RAG-System-Crawler/1.0"
+  retry_attempts: 3
+  retry_delay: 2.0
+
+# Document processing settings
+document_processing:
+  chunk_size: 512
+  chunk_overlap: 50
+  language_filter: "ja"
+  min_text_length: 100
+  max_text_length: 10000
+
+# Embedding model settings
+embedding:
+  model_name: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+  model_path: "./models/embedding"
+  batch_size: 32
+  max_seq_length: 512
+  device: "cpu"
+
+# Vector database settings
+vector_db:
+  storage_path: "./data/vectors"
+  index_type: "flat"
+  similarity_metric: "cosine"
+  top_k_results: 10
+
+# Generation model settings
+generation:
+  model_name: "rinna/japanese-gpt2-medium"
+  model_path: "./models/generation"
+  max_length: 512
+  temperature: 0.7
+  top_p: 0.9
+  device: "cpu"
+
+# Search settings
+search:
+  min_similarity_score: 0.5
+  max_results: 5
+  enable_reranking: true
+
+# Storage settings
+storage:
+  data_dir: "./data"
+  documents_dir: "./data/documents"
+  logs_dir: "./logs"
+  models_dir: "./models"
+
+# Logging settings
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_path: "./logs/rag_system.log"
+  max_file_size: "10MB"
+  backup_count: 5
+  enable_console: true
+  enable_file: true
+
+# Performance settings
+performance:
+  max_concurrent_requests: 10
+  request_timeout: 60
+  cache_size: 1000
+  enable_metrics: true
