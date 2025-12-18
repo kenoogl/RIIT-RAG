@@ -56,6 +56,10 @@ search:
   min_similarity_score: 0.5
   max_results: 5
   enable_reranking: true
+  enable_query_expansion: true
+  enable_query_normalization: true
+  max_query_length: 500
+  enable_search_analytics: true
 
 # Storage settings
 storage:
