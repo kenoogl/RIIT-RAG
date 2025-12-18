@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  rag-system:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: scp-rag-system-prod
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      # データの永続化（本番環境用の絶対パス推奨）
+      - /opt/rag-system/data:/app/data
+      - /opt/rag-system/logs:/app/logs
+      - /opt/rag-system/models:/app/models
+      # 設定ファイルのマウント
+      - /opt/rag-system/config/config.yaml:/app/config.yaml:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=${LOG_LEVEL:-WARNING}
+      - CONFIG_PATH=/app/config.yaml
+    restart: always
+    networks:
+      - rag-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: '2.0'
+        reservations:
+          memory: 2G
+          cpus: '1.0'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+
+  # 本番環境用のリバースプロキシ（オプション）
+  nginx:
+    image: nginx:alpine
+    container_name: scp-rag-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - rag-system
+    networks:
+      - rag-network
+    restart: always
+    profiles:
+      - with-nginx
+
+networks:
+  rag-network:
+    driver: bridge

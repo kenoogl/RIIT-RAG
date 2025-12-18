@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.venv/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+
+# データファイル（ボリュームマウントで管理）
+data/documents/*
+data/vectors/*
+data/logs/*
+data/processing/*
+logs/*
+
+# モデルファイル（ボリュームマウントで管理）
+models/embedding/*
+models/generation/*
+
+# テスト
+.pytest_cache/
+htmlcov/
+.coverage
+*.cover
+
+# ドキュメント
+*.md
+!README.md
+
+# 環境設定
+.env
+.env.local
+
+# その他
+*.log
+.DS_Store

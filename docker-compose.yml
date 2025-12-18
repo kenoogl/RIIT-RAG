@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  rag-system:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: scp-rag-system
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      # データの永続化
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./models:/app/models
+      # 設定ファイルのマウント
+      - ./config.yaml:/app/config.yaml:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - CONFIG_PATH=/app/config.yaml
+    restart: unless-stopped
+    networks:
+      - rag-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+networks:
+  rag-network:
+    driver: bridge
