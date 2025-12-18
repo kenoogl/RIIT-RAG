@@ -69,7 +69,16 @@ def get_rag_service() -> RAGService:
     if rag_service is None:
         # Try to initialize if not already done (for testing)
         try:
-            rag_service = create_rag_service()
+            from ..services.vector_database import LocalVectorDatabase
+            from ..services.embedding_model import LocalEmbeddingModel
+            from ..services.enhanced_search_engine import EnhancedSearchEngine
+            from ..services.generative_model import GenerativeModelService
+            
+            vector_db = LocalVectorDatabase()
+            embedding_model = LocalEmbeddingModel()
+            search_engine = EnhancedSearchEngine(vector_db, embedding_model)
+            generative_model = GenerativeModelService()
+            rag_service = create_rag_service(search_engine, generative_model)
         except Exception:
             raise HTTPException(status_code=503, detail="RAG service not initialized")
     return rag_service
@@ -114,13 +123,25 @@ async def startup_event():
     try:
         logger.info("Initializing RAG API services...")
         
-        # Initialize RAG service
-        rag_service = create_rag_service()
-        logger.info("RAG service initialized successfully")
-        
-        # Initialize document processing engine
+        # Initialize document processing engine first
         document_engine = create_document_engine()
         logger.info("Document processing engine initialized successfully")
+        
+        # Initialize dependencies
+        from ..services.vector_database import LocalVectorDatabase
+        from ..services.embedding_model import LocalEmbeddingModel
+        from ..services.enhanced_search_engine import EnhancedSearchEngine
+        from ..services.generative_model import GenerativeModelService
+        
+        # Create service instances
+        vector_db = LocalVectorDatabase()
+        embedding_model = LocalEmbeddingModel()
+        search_engine = EnhancedSearchEngine(vector_db, embedding_model)
+        generative_model = GenerativeModelService()
+        
+        # Initialize RAG service with required dependencies
+        rag_service = create_rag_service(search_engine, generative_model)
+        logger.info("RAG service initialized successfully")
         
         logger.info("RAG API startup completed successfully")
         

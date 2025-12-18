@@ -1,0 +1,87 @@
+{
+  "start_time": "2025-12-19T08:27:17.694344",
+  "tests": {
+    "file_structure": {
+      "status": "passed",
+      "directories_exist": true,
+      "files_exist": true,
+      "missing_directories": [],
+      "missing_files": []
+    },
+    "configuration": {
+      "status": "passed",
+      "config_exists": true,
+      "config_valid": true,
+      "config_sections": [
+        "app",
+        "crawler",
+        "document_processing",
+        "embedding",
+        "vector_db",
+        "generation",
+        "search",
+        "storage",
+        "logging",
+        "performance"
+      ]
+    },
+    "module_imports": {
+      "status": "passed",
+      "success_rate": 100.0,
+      "successful_imports": 6,
+      "total_imports": 6,
+      "import_results": {
+        "src.models.core": true,
+        "src.services.rag_service": true,
+        "src.services.document_engine": true,
+        "src.services.vector_database": true,
+        "src.services.embedding_model": true,
+        "src.utils.config": true
+      }
+    },
+    "data_models": {
+      "status": "passed",
+      "success_rate": 100.0,
+      "successful_models": 4,
+      "total_models": 4,
+      "model_tests": {
+        "Document": true,
+        "Chunk": true,
+        "SearchResult": true,
+        "Answer": true
+      }
+    },
+    "service_initialization": {
+      "status": "passed",
+      "success_rate": 100.0,
+      "successful_services": 4,
+      "total_services": 4,
+      "service_tests": {
+        "LocalVectorDatabase": true,
+        "LocalEmbeddingModel": true,
+        "DocumentProcessingEngine": true,
+        "DocumentManagementService": true
+      }
+    },
+    "integration_functionality": {
+      "status": "passed",
+      "success_rate": 75.0,
+      "successful_integrations": 3,
+      "total_integrations": 4,
+      "integration_tests": {
+        "config_loading": true,
+        "document_management": false,
+        "system_monitoring": true,
+        "existing_test_files": true
+      }
+    }
+  },
+  "summary": {
+    "total_tests": 6,
+    "passed_tests": 6,
+    "failed_tests": 0,
+    "success_rate": 100.0,
+    "overall_status": "PASSED"
+  },
+  "end_time": "2025-12-19T08:27:21.830143"
+}

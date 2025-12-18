@@ -53,7 +53,13 @@ def main():
     args = parser.parse_args()
     
     # Setup logging
-    setup_logging(level=args.log_level)
+    logging_config = {
+        "level": args.log_level,
+        "enable_console": True,
+        "enable_file": True,
+        "logs_dir": "./logs"
+    }
+    setup_logging(logging_config)
     logger = logging.getLogger(__name__)
     
     try:

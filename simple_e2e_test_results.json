@@ -1,0 +1,89 @@
+{
+  "start_time": "2025-12-19T08:26:08.958097",
+  "tests": {
+    "system_initialization": {
+      "status": "failed",
+      "error": "'Config' object has no attribute 'keys'"
+    },
+    "document_collection_processing": {
+      "status": "failed",
+      "error": "'DocumentProcessingEngine' object has no attribute 'process_document_data'"
+    },
+    "search_functionality": {
+      "status": "failed",
+      "success_rate": 0.0,
+      "total_searches": 3,
+      "successful_searches": 0,
+      "search_results": [
+        {
+          "question": "スパコンのアカウント作成方法を教えてください",
+          "error": "Enhanced search failed: Search failed: Model not loaded. Call load_model() first.",
+          "success": false
+        },
+        {
+          "question": "バッチジョブの投入方法は？",
+          "error": "Enhanced search failed: Search failed: Model not loaded. Call load_model() first.",
+          "success": false
+        },
+        {
+          "question": "利用料金について知りたい",
+          "error": "Enhanced search failed: Search failed: Model not loaded. Call load_model() first.",
+          "success": false
+        }
+      ]
+    },
+    "management_functions": {
+      "status": "failed",
+      "document_management": false,
+      "system_monitoring": true,
+      "index_status": true,
+      "documents_count": 0,
+      "system_status": {
+        "timestamp": "2025-12-19T08:26:08.962187",
+        "overall_status": "healthy",
+        "components": {
+          "search_logging": {
+            "status": "not_available"
+          },
+          "logging": {
+            "status": "healthy",
+            "log_files": {
+              "accessible_files": 2,
+              "total_size": 105709,
+              "files": [
+                {
+                  "name": "search.log",
+                  "size": 2400,
+                  "modified": "2025-12-19T07:09:48.852363"
+                },
+                {
+                  "name": "rag_system.log",
+                  "size": 103309,
+                  "modified": "2025-12-19T08:24:31.815645"
+                }
+              ]
+            }
+          }
+        },
+        "performance": {},
+        "resources": {
+          "cpu_percent": 2.7,
+          "memory_percent": 81.1,
+          "disk_usage": 78.6
+        }
+      }
+    },
+    "data_integrity": {
+      "status": "failed",
+      "error": "object of type 'Config' has no len()"
+    }
+  },
+  "summary": {
+    "total_tests": 5,
+    "passed_tests": 0,
+    "failed_tests": 5,
+    "success_rate": 0.0,
+    "overall_status": "FAILED"
+  },
+  "end_time": "2025-12-19T08:26:09.970188"
+}
