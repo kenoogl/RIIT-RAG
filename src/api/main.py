@@ -18,6 +18,7 @@ from ..services.rag_service import RAGService, create_rag_service
 from ..services.document_engine import DocumentProcessingEngine, create_document_engine
 from ..models.core import Answer, SearchResult
 from ..utils.config import get_config
+from .management import router as management_router
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -101,6 +102,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include management router
+app.include_router(management_router)
 
 @app.on_event("startup")
 async def startup_event():

@@ -28,6 +28,9 @@ pytest-asyncio==0.21.1
 hypothesis==6.88.1
 httpx==0.25.0  # Required for FastAPI TestClient
 
+# System monitoring
+psutil==5.9.6
+
 # Development tools
 black==23.9.1
 flake8==6.1.0

@@ -56,6 +56,11 @@ class GenerationError(RAGSystemError):
     pass
 
 
+class ManagementError(RAGSystemError):
+    """Exception raised when management operations fail."""
+    pass
+
+
 class ModelLoadError(RAGSystemError):
     """Exception raised when model loading fails."""
     pass

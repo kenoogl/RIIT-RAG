@@ -11,6 +11,7 @@ from .generative_model import GenerativeModelService, create_generative_model_se
 from .rag_service import RAGService, create_rag_service
 from .enhanced_search_engine import EnhancedSearchEngine, create_enhanced_search_engine
 from .search_logging_service import SearchLoggingService, create_search_logging_service
+from .management_service import DocumentManagementService, SystemMonitoringService, create_document_management_service, create_system_monitoring_service
 
 # API is available but imported separately to avoid circular dependencies
 # from ..api.main import app, create_app, run_server
@@ -42,5 +43,9 @@ __all__ = [
     'EnhancedSearchEngine',
     'create_enhanced_search_engine',
     'SearchLoggingService',
-    'create_search_logging_service'
+    'create_search_logging_service',
+    'DocumentManagementService',
+    'SystemMonitoringService',
+    'create_document_management_service',
+    'create_system_monitoring_service'
 ]

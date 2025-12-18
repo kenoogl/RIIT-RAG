@@ -106,6 +106,45 @@ Trigger document processing and indexing.
 #### `GET /documents/status` - Document Status
 Get the status of document processing.
 
+### Administrative Endpoints
+
+The API includes comprehensive administrative endpoints under `/admin/` for system management:
+
+#### Document Management
+- `POST /admin/documents` - Create new documents
+- `GET /admin/documents` - List all documents with pagination
+- `GET /admin/documents/{id}` - Get document details
+- `PUT /admin/documents/{id}` - Update existing documents
+- `DELETE /admin/documents/{id}` - Delete documents
+- `GET /admin/index/status` - Get index status
+- `POST /admin/index/rebuild` - Rebuild document index
+
+#### System Monitoring
+- `GET /admin/system/status` - Get overall system health
+- `GET /admin/system/metrics` - Get performance metrics
+- `GET /admin/system/logs` - List available log files
+- `GET /admin/system/logs/{file}` - Get log file summary
+
+**Example Admin Usage:**
+```bash
+# Create a document
+curl -X POST "http://localhost:8000/admin/documents" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "id": "guide_001",
+    "title": "スパコン利用ガイド",
+    "url": "https://example.com/guide",
+    "content": "九州大学のスーパーコンピュータ利用方法...",
+    "language": "ja"
+  }'
+
+# Get system status
+curl "http://localhost:8000/admin/system/status"
+
+# List documents with pagination
+curl "http://localhost:8000/admin/documents?limit=10&offset=0"
+```
+
 ## Configuration
 
 The API uses the same `config.yaml` file as the rest of the system. Key settings:
